@@ -1,5 +1,5 @@
 name: EAPI
 version: ${version}
-main: dev.elysium.eapi.plugin.BukkitPlugin
+main: dev.elysium.eapi.plugin.EAPIBukkit
 description: Просто Библиотека для работы с АПИ
 api-version: '1.21.1'
