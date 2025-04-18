@@ -1,7 +1,12 @@
 package dev.elysium.eapi.lib
 
+import dev.elysium.eapi.lib.endpoints.GetHealth
+
 class API(private val baseUrl: String, private val token: String) {
-  fun getBaseUrl(): String {
-    return baseUrl
+
+  val getHealth = GetHealth
+
+  init {
+    getHealth.inject(this)
   }
 }

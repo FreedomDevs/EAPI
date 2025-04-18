@@ -15,18 +15,16 @@ class EAPIBukkit : JavaPlugin() {
   }
 
   override fun onEnable() {
+//    Config
     val config = config
-
-    // Устанавливаем дефолтные значения
     config.addDefault("baseUrl", "https://example.com")
     config.addDefault("token", "SECRET_TOKEN")
     config.options().copyDefaults(true)
-
     saveConfig()
 
     api = API(config.getString("baseUrl").toString(), config.getString("token").toString())
 
-    logger.info("BaseUrl: " + api.getBaseUrl())
+
     logger.info("EAPI включён!")
   }
 
