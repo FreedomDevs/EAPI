@@ -1,13 +1,9 @@
 package dev.elysium.eapi.plugin
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import dev.elysium.eapi.lib.API
 import org.bukkit.plugin.java.JavaPlugin
 
-class EAPIBukkit : JavaPlugin(), CoroutineScope  {
-  override val coroutineContext = Dispatchers.IO
+class EAPIBukkit : JavaPlugin()  {
 
   lateinit var api: API
   companion object {
@@ -31,17 +27,9 @@ class EAPIBukkit : JavaPlugin(), CoroutineScope  {
 
     logger.info("EAPI включён!")
 
-    launch {
-      tesy()
-    }
   }
 
   override fun onDisable() {
     logger.info("EAPI выключен.")
-  }
-
-  suspend fun tesy(){
-    val s = api.getUser.fetch("foksik")
-    logger.info(s.id)
   }
 }
