@@ -18,7 +18,7 @@ object GetUser : Endpoint {
     }
 
     @Serializable
-    data class UserResponse(
+    data class Response(
         val id: String,
         val name: String,
         val email: String,
@@ -31,7 +31,7 @@ object GetUser : Endpoint {
         val roles: List<String>
     )
 
-    suspend fun fetch(playerName: String): UserResponse? {
+    suspend fun fetch(playerName: String): Response? {
         val client = HttpClient.newHttpClient()
         val request = HttpRequest.newBuilder()
             .uri(URI.create("${api.baseUrl}/server-request/get/user/$playerName"))
@@ -39,14 +39,10 @@ object GetUser : Endpoint {
             .GET()
             .build()
 
-        println("Request Headers: ${request.headers().map()}")
-
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
-        println("Response Body: ${response.body()}")
-
         return if (response.statusCode() == 200) {
-            Json.decodeFromString<UserResponse>(response.body())
+            Json.decodeFromString<Response>(response.body())
         } else {
             println("Error: ${response.statusCode()}")
             null
