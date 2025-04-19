@@ -1,6 +1,8 @@
 package dev.elysium.eapi.plugin
 
 import dev.elysium.eapi.lib.API
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.bukkit.plugin.java.JavaPlugin
 
 class EAPIBukkit : JavaPlugin()  {
@@ -18,14 +20,19 @@ class EAPIBukkit : JavaPlugin()  {
   override fun onEnable() {
 //    Config
     val config = config
-    config.addDefault("baseUrl", "https://example.com")
-    config.addDefault("token", "SECRET_TOKEN")
+    config.addDefault("baseUrl", "http://localhost:3000")
+    config.addDefault("token", "server-token")
     config.options().copyDefaults(true)
     saveConfig()
 
     api = API(config.getString("baseUrl").toString(), config.getString("token").toString())
 
     logger.info("EAPI включён!")
+
+    GlobalScope.launch {
+      val res = api.getUser.fetch("foksik")
+      logger.info(res?.email)
+    }
 
   }
 
