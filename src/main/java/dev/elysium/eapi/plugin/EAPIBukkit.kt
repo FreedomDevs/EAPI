@@ -1,6 +1,7 @@
 package dev.elysium.eapi.plugin
 
 import dev.elysium.eapi.lib.API
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.bukkit.plugin.java.JavaPlugin
@@ -13,10 +14,25 @@ class EAPIBukkit : JavaPlugin()  {
       private set
   }
 
+  var apistatus: Boolean = true
+
+  @OptIn(DelicateCoroutinesApi::class)
+  fun RefreshApiStatus() {
+    var status = false
+
+    GlobalScope.launch {
+      status =  (api.getHealth.fetch() != null)
+    }
+
+    apistatus = status
+  }
+
+
   override fun onLoad() {
     instance = this
   }
 
+  @OptIn(DelicateCoroutinesApi::class)
   override fun onEnable() {
 //    Config
     val config = config
@@ -33,6 +49,8 @@ class EAPIBukkit : JavaPlugin()  {
       val res = api.getUser.fetch("foksik")
       logger.info(res?.email)
     }
+
+    server.pluginManager.registerEvents(JoinPlayerConnectionCheck(), this)
 
   }
 
