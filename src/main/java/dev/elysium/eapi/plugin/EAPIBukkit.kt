@@ -4,6 +4,7 @@ import dev.elysium.eapi.lib.API
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class EAPIBukkit : JavaPlugin()  {
@@ -52,6 +53,8 @@ class EAPIBukkit : JavaPlugin()  {
 
     server.pluginManager.registerEvents(JoinPlayerConnectionCheck(), this)
 
+    Bukkit.getScheduler().runTaskTimer(this, ConnectionChecker(this), 0L, 15*20L /*15 секунд = 15*20 тиков*/)
+    
   }
 
   override fun onDisable() {

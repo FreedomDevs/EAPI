@@ -12,7 +12,7 @@ class JoinPlayerConnectionCheck: Listener {
         EAPIBukkit.instance.RefreshApiStatus()
 
         if (!EAPIBukkit.instance.apistatus) {
-            event.player.kick(Component.text("Потеряно соединение с EAPI!"))
+            event.player.kick(Component.text("Потеряно соединение с API!"))
         }
     }
 
