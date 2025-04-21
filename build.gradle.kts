@@ -35,6 +35,9 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand(mapOf("version" to version))
     }
+    filesMatching("velocity-plugin.json") {
+        expand(mapOf("version" to version))
+    }
 }
 
 publishing {
