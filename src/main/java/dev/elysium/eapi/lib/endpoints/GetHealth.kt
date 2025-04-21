@@ -1,7 +1,6 @@
 package dev.elysium.eapi.lib.endpoints
 
 import dev.elysium.eapi.lib.API
-import dev.elysium.eapi.lib.endpoints.GetUser.UserResponse
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
