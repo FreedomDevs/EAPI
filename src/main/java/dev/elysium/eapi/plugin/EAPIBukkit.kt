@@ -1,6 +1,7 @@
 package dev.elysium.eapi.plugin
 
 import dev.elysium.eapi.lib.API
+import dev.elysium.eapi.lib.listeners.JoinPlayerApiHealthCheck
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -51,7 +52,7 @@ class EAPIBukkit : JavaPlugin()  {
       logger.info(res?.email)
     }
 
-    server.pluginManager.registerEvents(JoinPlayerConnectionCheck(), this)
+    server.pluginManager.registerEvents(JoinPlayerApiHealthCheck(), this)
 
     Bukkit.getScheduler().runTaskTimer(this, ConnectionChecker(this), 0L, 15*20L /*15 секунд = 15*20 тиков*/)
     
