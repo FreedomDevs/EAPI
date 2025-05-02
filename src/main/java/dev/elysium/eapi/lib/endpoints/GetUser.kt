@@ -26,9 +26,12 @@ object GetUser : Endpoint {
         val avatar: String,
         val skinUrl: String,
         val skinType: Boolean,
+        val coins: Int,
+        val pass: Boolean,
+        val roles: List<String>,
+
         val createdAt: String,
-        val updatedAt: String,
-        val roles: List<String>
+        val updatedAt: String
     )
 
     suspend fun fetch(playerName: String): Response? {
