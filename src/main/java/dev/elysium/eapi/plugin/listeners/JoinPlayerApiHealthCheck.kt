@@ -1,4 +1,4 @@
-package dev.elysium.eapi.lib.listeners
+package dev.elysium.eapi.plugin.listeners
 
 import dev.elysium.eapi.plugin.EAPIBukkit
 import net.kyori.adventure.text.Component
@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-class JoinPlayerApiHealthCheck: Listener {
+class JoinPlayerApiHealthCheck : Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
@@ -16,5 +16,5 @@ class JoinPlayerApiHealthCheck: Listener {
             event.player.kick(Component.text("Потеряно соединение с API!"))
         }
     }
-
 }
+

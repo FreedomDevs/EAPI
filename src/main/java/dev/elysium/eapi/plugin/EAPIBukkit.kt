@@ -1,14 +1,14 @@
 package dev.elysium.eapi.plugin
 
 import dev.elysium.eapi.lib.API
-import dev.elysium.eapi.lib.listeners.JoinPlayerApiHealthCheck
+import dev.elysium.eapi.plugin.listeners.JoinPlayerApiHealthCheck
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
-class EAPIBukkit : JavaPlugin()  {
+class EAPIBukkit : JavaPlugin() {
 
   lateinit var api: API
   companion object {
@@ -20,15 +20,12 @@ class EAPIBukkit : JavaPlugin()  {
 
   @OptIn(DelicateCoroutinesApi::class)
   fun RefreshApiStatus() {
-    var status = false
-
     GlobalScope.launch {
-      status =  (api.getHealth.fetch() != null)
+      var status = false
+      status = (api.getHealth.fetch() != null)
+      apistatus = status
     }
-
-    apistatus = status
   }
-
 
   override fun onLoad() {
     instance = this
@@ -36,7 +33,7 @@ class EAPIBukkit : JavaPlugin()  {
 
   @OptIn(DelicateCoroutinesApi::class)
   override fun onEnable() {
-//    Config
+    //    Config
     val config = config
     config.addDefault("baseUrl", "http://localhost:3000")
     config.addDefault("token", "server-token")
@@ -47,15 +44,10 @@ class EAPIBukkit : JavaPlugin()  {
 
     logger.info("EAPI включён!")
 
-    GlobalScope.launch {
-      val res = api.getUser.fetch("foksik")
-      logger.info(res?.email)
-    }
-
     server.pluginManager.registerEvents(JoinPlayerApiHealthCheck(), this)
 
-    Bukkit.getScheduler().runTaskTimer(this, ConnectionChecker(this), 0L, 15*20L /*15 секунд = 15*20 тиков*/)
-    
+    Bukkit.getScheduler()
+            .runTaskTimer(this, ConnectionChecker(this), 0L, 15 * 20L /*15 секунд = 15*20 тиков*/)
   }
 
   override fun onDisable() {
