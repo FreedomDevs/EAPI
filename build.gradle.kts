@@ -43,13 +43,15 @@ tasks.processResources {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            from(components["java"])
+            artifact(tasks.shadowJar.get())
+
             groupId = project.group.toString()
             artifactId = "eapi"
             version = project.version.toString()
         }
     }
 }
+
 
 tasks {
     shadowJar {
