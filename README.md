@@ -1,4 +1,4 @@
-# 🧩 EAPI v0.2.3
+# 🧩 EAPI
 
 **Elysium API** — библиотека для взаимодействия с REST-эндпоинтами **ElysiumAPI**.
 
