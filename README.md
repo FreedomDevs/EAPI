@@ -11,7 +11,7 @@
 Перед использованием необходимо опубликовать библиотеку в локальный Maven-репозиторий:
 
 ```bash
-  .\gradlew publishToMavenLocal
+.\gradlew publishToMavenLocal
 ```
 ---
 
