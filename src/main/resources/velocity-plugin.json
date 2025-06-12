@@ -1,7 +1,0 @@
-{
-  "id": "EApi",
-  "name": "EApi",
-  "version": "${version}",
-  "main": "dev.elysium.eapi.plugin.EAPIVelocity"
-}
-

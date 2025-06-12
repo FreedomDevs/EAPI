@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "dev.elysium.eapi"
-version = "0.2.1"
+version = "0.2.3"
 
 repositories {
     mavenCentral()
@@ -20,8 +20,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
-    annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
@@ -33,9 +32,6 @@ java {
 
 tasks.processResources {
     filesMatching("plugin.yml") {
-        expand(mapOf("version" to version))
-    }
-    filesMatching("velocity-plugin.json") {
         expand(mapOf("version" to version))
     }
 }

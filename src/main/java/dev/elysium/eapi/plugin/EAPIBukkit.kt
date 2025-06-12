@@ -1,6 +1,7 @@
 package dev.elysium.eapi.plugin
 
 import dev.elysium.eapi.lib.API
+import dev.elysium.eapi.lib.endpoints.AddPlaytime
 import dev.elysium.eapi.plugin.listeners.JoinPlayerApiHealthCheck
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope

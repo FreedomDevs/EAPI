@@ -4,32 +4,44 @@ import dev.elysium.eapi.lib.API
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
-object CheckTokenValid: Endpoint {
+object AddKills: Endpoint {
     private lateinit var api: API
 
-     override fun inject(api: API) {
+    override fun inject(api: API) {
         this.api = api
     }
 
     @Serializable
     data class Response(
-        val isValid: Boolean
+        val name: String,
+        val kills: Int
     )
 
-    suspend fun fetch(userToken: String): Response? {
+    @Serializable
+    data class RequestBody(
+        val name: String,
+        val kills: Int
+    )
+
+    suspend fun fetch(requestBody: RequestBody): Response? {
         val client = HttpClient.newHttpClient()
+        val jsonBody = Json.encodeToString(requestBody)
+
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("${api.baseUrl}/server-request/check/token"))
+            .uri(URI.create("${api.baseUrl}/server-request/stats/add-kills"))
             .header("server-authorization", api.token)
-            .POST(HttpRequest.BodyPublishers.ofString("{\"token\":\"${userToken}\"}"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
             .build()
 
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+
         return if (response.statusCode() == 200) {
             Json.decodeFromString<Response>(response.body())
         } else {
