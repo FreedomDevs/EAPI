@@ -88,9 +88,9 @@ pluginScope.launch(Dispatchers.IO) {
 ```
 
 ```kotlin
-pluginScope.launch(Dispatchers.IO) {
-    // ⏱ Добавление времени игры игроку
+// ⏱ Добавление времени игры игроку
 
+pluginScope.launch(Dispatchers.IO) {
     // Выполняем запрос к API для добавления времени игры пользователю
     // В данном случае — добавляем 1200 секунд (20 минут) игроку с ником "mikinol"
     val result = EAPIBukkit.instance.api.addPlaytime.fetch(
