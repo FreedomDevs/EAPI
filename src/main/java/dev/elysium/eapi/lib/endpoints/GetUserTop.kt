@@ -43,10 +43,10 @@ object GetUserTop: Endpoint {
 
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
-        return if (response.statusCode() == 200) {
+        return if (response.statusCode() in 200..299) {
             Json.decodeFromString<List<Response>>(response.body())
         } else {
-            println("Error: ${response.statusCode()}")
+            println("Error: ${response.statusCode()} - ${response.body()}")
             null
         }
     }
