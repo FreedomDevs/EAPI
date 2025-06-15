@@ -33,7 +33,7 @@ object LoginUser: Endpoint {
         val jsonBody = Json.encodeToString(requestBody)
 
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("${api.baseUrl}/auth/register"))
+            .uri(URI.create("${api.baseUrl}/auth/login"))
             .header("server-authorization", api.token)
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(jsonBody))

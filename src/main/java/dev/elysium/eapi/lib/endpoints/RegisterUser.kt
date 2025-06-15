@@ -17,6 +17,10 @@ object RegisterUser: Endpoint {
         this.api = api
     }
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     @Serializable
     data class Response(
         val id: String,
@@ -43,7 +47,7 @@ object RegisterUser: Endpoint {
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
         return if (response.statusCode() in 200..299) {
-            Json.decodeFromString<Response>(response.body())
+            json.decodeFromString<Response>(response.body())
         } else {
             println("Error: ${response.statusCode()} - ${response.body()}")
             null
