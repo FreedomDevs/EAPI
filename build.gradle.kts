@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "dev.elysium.eapi"
-version = "0.2.8"
+version = "0.2.10"
 
 repositories {
     mavenCentral()

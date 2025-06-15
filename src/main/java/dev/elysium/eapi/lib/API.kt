@@ -8,6 +8,8 @@ import dev.elysium.eapi.lib.endpoints.CheckTokenValid
 import dev.elysium.eapi.lib.endpoints.GetHealth
 import dev.elysium.eapi.lib.endpoints.GetUser
 import dev.elysium.eapi.lib.endpoints.GetUserTop
+import dev.elysium.eapi.lib.endpoints.LoginUser
+import dev.elysium.eapi.lib.endpoints.RegisterUser
 import dev.elysium.eapi.lib.endpoints.UnbanUser
 
 class API(internal val baseUrl: String, internal val token: String) {
@@ -46,5 +48,13 @@ class API(internal val baseUrl: String, internal val token: String) {
 
   val getUserTop by lazy {
     GetUserTop.apply { inject(this@API) }
+  }
+
+  val loginUser by lazy {
+    LoginUser.apply { inject(this@API) }
+  }
+
+  val registerUser by lazy {
+    RegisterUser.apply { inject(this@API) }
   }
 }
