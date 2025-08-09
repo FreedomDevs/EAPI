@@ -19,8 +19,20 @@ object AddPlaytime: Endpoint {
 
     @Serializable
     data class Response(
+        val id: String,
         val name: String,
-        val playTime: Int
+        val password: String,
+        val avatar: String? = null,
+        val skinUrl: String? = null,
+        val skinType: Boolean,
+        val coins: Int,
+        val pass: Boolean,
+        val playTime: Int,
+        val kills: Int,
+        val deaths: Int,
+        val roles: List<String>,
+        val createdAt: String,
+        val updatedAt: String
     )
 
     @Serializable

@@ -37,7 +37,7 @@ class EAPIBukkit : JavaPlugin() {
     //    Config
     val config = config
     config.addDefault("baseUrl", "http://localhost:3000")
-    config.addDefault("token", "server-token")
+    config.addDefault("token", "secret-key")
     config.options().copyDefaults(true)
     saveConfig()
 
