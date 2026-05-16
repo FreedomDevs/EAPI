@@ -1,20 +1,22 @@
 package dev.elysium.eapi.plugin.listeners
 
-import dev.elysium.eapi.plugin.EAPIBukkit
+import dev.elysium.eapi.plugin.services.ApiHealthService
 import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-class JoinPlayerApiHealthCheck : Listener {
+class JoinPlayerApiHealthCheck(
+    private val apiHealth: ApiHealthService
+) : Listener {
 
     @EventHandler
-    fun onPlayerJoin(event: PlayerJoinEvent) {
-        EAPIBukkit.Companion.instance.RefreshApiStatus()
+    fun onJoin(event: PlayerJoinEvent) {
 
-        if (!EAPIBukkit.Companion.instance.apistatus) {
+        apiHealth.refreshAsync()
+
+        if (!apiHealth.status) {
             event.player.kick(Component.text("Потеряно соединение с API!"))
         }
     }
 }
-

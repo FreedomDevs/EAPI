@@ -1,6 +1,6 @@
-package dev.elysium.eapi.lib.endpoints
+package dev.elysium.eapi.lib.v1.endpoints
 
-import dev.elysium.eapi.lib.API
+import dev.elysium.eapi.lib.v1.API
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.decodeFromString

@@ -1,31 +1,34 @@
 package dev.elysium.eapi.plugin
 
 import dev.elysium.eapi.lib.API
-import dev.elysium.eapi.lib.endpoints.AddPlaytime
 import dev.elysium.eapi.plugin.listeners.JoinPlayerApiHealthCheck
+import dev.elysium.eapi.plugin.services.ApiHealthService
+import dev.elysium.eapi.plugin.services.ConnectionCheckerService
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
-class EAPIBukkit : JavaPlugin() {
+class EAPIBukkit : JavaPlugin(), CoroutineScope {
+
+  private val job = SupervisorJob()
+
+  override val coroutineContext =
+    Dispatchers.IO + job
 
   lateinit var api: API
+    private set
+
+  lateinit var apiHealthService: ApiHealthService
+    private set
+
+  private lateinit var pluginConfig: PluginConfig
+
   companion object {
     lateinit var instance: EAPIBukkit
       private set
-  }
-
-  var apistatus: Boolean = true
-
-  @OptIn(DelicateCoroutinesApi::class)
-  fun RefreshApiStatus() {
-    GlobalScope.launch {
-      var status = false
-      status = (api.getHealth.fetch() != null)
-      apistatus = status
-    }
   }
 
   override fun onLoad() {
@@ -34,24 +37,42 @@ class EAPIBukkit : JavaPlugin() {
 
   @OptIn(DelicateCoroutinesApi::class)
   override fun onEnable() {
-    //    Config
-    val config = config
-    config.addDefault("baseUrl", "http://localhost:3000")
-    config.addDefault("token", "secret-key")
-    config.options().copyDefaults(true)
-    saveConfig()
-
-    api = API(config.getString("baseUrl").toString(), config.getString("token").toString())
-
+    setupConfig()
+    setupApi()
+    setupServices()
     logger.info("EAPI включён!")
-
-    server.pluginManager.registerEvents(JoinPlayerApiHealthCheck(), this)
-
-    Bukkit.getScheduler()
-            .runTaskTimer(this, ConnectionChecker(this), 0L, 15 * 20L /*15 секунд = 15*20 тиков*/)
   }
 
   override fun onDisable() {
+    job.cancel()
     logger.info("EAPI выключен.")
+  }
+
+  private fun setupConfig() {
+    pluginConfig = PluginConfig(this)
+    pluginConfig.init()
+  }
+
+  private fun setupApi() {
+    api = API(
+      pluginConfig.baseUrl(),
+      pluginConfig.token()
+    )
+  }
+
+  private fun setupServices() {
+    apiHealthService = ApiHealthService(this, api)
+
+    server.pluginManager.registerEvents(
+      JoinPlayerApiHealthCheck(apiHealthService),
+      this
+    )
+
+    Bukkit.getScheduler().runTaskTimer(
+      this,
+      ConnectionCheckerService(apiHealthService),
+      0L,
+      15 * 20L
+    )
   }
 }

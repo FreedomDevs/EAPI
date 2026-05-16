@@ -1,6 +1,6 @@
-package dev.elysium.eapi.lib.endpoints
+package dev.elysium.eapi.lib.v1.endpoints
 
-import dev.elysium.eapi.lib.API
+import dev.elysium.eapi.lib.v1.API
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -10,16 +10,21 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
-object LoginUser: Endpoint {
+object RegisterUser: Endpoint {
     private lateinit var api: API
 
     override fun inject(api: API) {
         this.api = api
     }
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     @Serializable
     data class Response(
-        val accessToken: String
+        val id: String,
+        val name: String
     )
 
     @Serializable
@@ -33,7 +38,7 @@ object LoginUser: Endpoint {
         val jsonBody = Json.encodeToString(requestBody)
 
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("${api.baseUrl}/auth/login"))
+            .uri(URI.create("${api.baseUrl}/auth/register"))
             .header("server-authorization", api.token)
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
@@ -42,7 +47,7 @@ object LoginUser: Endpoint {
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
         return if (response.statusCode() in 200..299) {
-            Json.decodeFromString<Response>(response.body())
+            json.decodeFromString<Response>(response.body())
         } else {
             println("Error: ${response.statusCode()} - ${response.body()}")
             null

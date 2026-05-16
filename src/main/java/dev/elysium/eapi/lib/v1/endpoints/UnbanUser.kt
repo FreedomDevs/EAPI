@@ -1,6 +1,6 @@
-package dev.elysium.eapi.lib.endpoints
+package dev.elysium.eapi.lib.v1.endpoints
 
-import dev.elysium.eapi.lib.API
+import dev.elysium.eapi.lib.v1.API
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -10,7 +10,7 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
-object AddDeaths: Endpoint {
+object UnbanUser : Endpoint {
     private lateinit var api: API
 
     override fun inject(api: API) {
@@ -19,26 +19,12 @@ object AddDeaths: Endpoint {
 
     @Serializable
     data class Response(
-        val id: String,
-        val name: String,
-        val password: String,
-        val avatar: String? = null,
-        val skinUrl: String? = null,
-        val skinType: Boolean,
-        val coins: Int,
-        val pass: Boolean,
-        val playTime: Int,
-        val kills: Int,
-        val deaths: Int,
-        val roles: List<String>,
-        val createdAt: String,
-        val updatedAt: String
+        val userId: String
     )
 
     @Serializable
     data class RequestBody(
-        val name: String,
-        val deaths: Int
+        val name: String
     )
 
     suspend fun fetch(requestBody: RequestBody): Response? {
@@ -46,7 +32,7 @@ object AddDeaths: Endpoint {
         val jsonBody = Json.encodeToString(requestBody)
 
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("${api.baseUrl}/server-request/stats/add-deaths"))
+            .uri(URI.create("${api.baseUrl}/server-request/ban/ban"))
             .header("server-authorization", api.token)
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
