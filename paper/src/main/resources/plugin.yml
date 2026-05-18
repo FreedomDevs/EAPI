@@ -1,0 +1,5 @@
+name: EAPI
+version: ${version}
+main: EAPIPaper
+description: Просто Библиотека для работы с АПИ
+api-version: '1.21.1'

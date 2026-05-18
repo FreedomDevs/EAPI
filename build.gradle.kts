@@ -1,61 +1,22 @@
 plugins {
-    kotlin("jvm") version "2.1.20"
-    kotlin("plugin.serialization") version "1.8.10"
-    java
-    `maven-publish`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    kotlin("jvm") version "2.1.20" apply false
+    kotlin("plugin.serialization") version "2.1.20" apply false
+    id("com.github.johnrengelman.shadow") version "8.1.1" apply false
 }
 
 group = "dev.elysium.eapi"
 version = "0.2.14"
 
-repositories {
-    mavenCentral()
-    maven {
-        name = "papermc"
-        url = uri("https://repo.papermc.io/repository/maven-public/")
+allprojects {
+    repositories {
+        mavenCentral()
     }
 }
 
-dependencies {
-    implementation(kotlin("stdlib"))
-    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
-}
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-}
-
-tasks.processResources {
-    filesMatching("plugin.yml") {
-        expand(mapOf("version" to version))
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            artifact(tasks.shadowJar.get())
-
-            groupId = project.group.toString()
-            artifactId = "eapi"
-            version = project.version.toString()
-        }
-    }
-}
-
-
-tasks {
-    shadowJar {
-        archiveClassifier.set("")
-        mergeServiceFiles()
-    }
-
-    build {
-        dependsOn(shadowJar)
+    extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension> {
+        jvmToolchain(21)
     }
 }
