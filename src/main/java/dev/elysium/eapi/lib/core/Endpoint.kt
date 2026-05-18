@@ -7,24 +7,31 @@ import java.net.http.HttpResponse
 
 abstract class Endpoint<Req : Any, Res : Any>(
     private val module: ApiModule,
-    private val reqSerializer: KSerializer<Req>,
+    private val reqSerializer: KSerializer<Req>?,
     private val resSerializer: KSerializer<Res>
 ) {
 
     abstract val path: String
 
-    open fun query(body: Req): Map<String, String> = emptyMap()
+    open fun query(body: Req?): Map<String, String> = emptyMap()
 
-    suspend operator fun invoke(body: Req): Res {
+    open val method: HttpMethod = HttpMethod.POST
 
-        val jsonBody = JsonProvider.json.encodeToString(
-            reqSerializer,
-            body
-        )
+    suspend operator fun invoke(body: Req? = null): Res {
+
+        val jsonBody =
+            if (body != null && reqSerializer != null) {
+                JsonProvider.json.encodeToString(
+                    reqSerializer,
+                    body
+                )
+            } else {
+                null
+            }
 
         val request = module.context.request(
             path = module.basePath + path,
-            method = HttpMethod.POST,
+            method = method,
             body = jsonBody,
             query = query(body)
         )

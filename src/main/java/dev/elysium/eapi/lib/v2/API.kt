@@ -2,10 +2,13 @@ package dev.elysium.eapi.lib.v2
 
 import dev.elysium.eapi.lib.core.ApiContext
 import dev.elysium.eapi.lib.v2.auth.AuthModule
+import dev.elysium.eapi.lib.v2.dox.DoxModule
 
 class API(baseUrl: String, token: String) {
 
     private val context = ApiContext(baseUrl, token)
 
-    val auth = AuthModule(context)
+    val auth = AuthModule(this.context)
+
+    val dox = DoxModule(this.context)
 }

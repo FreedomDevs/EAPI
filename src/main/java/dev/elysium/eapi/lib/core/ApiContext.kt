@@ -51,7 +51,16 @@ class ApiContext(
                 ).build()
 
             HttpMethod.DELETE ->
-                builder.DELETE().build()
+                if (body != null) {
+                    builder.method(
+                        "DELETE",
+                        HttpRequest.BodyPublishers.ofString(body)
+                    ).build()
+
+                } else {
+
+                    builder.DELETE().build()
+                }
         }
     }
 }
