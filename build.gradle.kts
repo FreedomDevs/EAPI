@@ -5,7 +5,6 @@ plugins {
 }
 
 group = "dev.elysium.eapi"
-version = "2.0"
 
 allprojects {
     repositories {
@@ -14,6 +13,8 @@ allprojects {
 }
 
 subprojects {
+    version = "2.0"
+
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension> {

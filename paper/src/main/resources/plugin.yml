@@ -3,3 +3,7 @@ version: ${version}
 main: EAPIPaper
 description: Просто Библиотека для работы с АПИ
 api-version: '1.21.1'
+
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:2.2.21
+  - org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0

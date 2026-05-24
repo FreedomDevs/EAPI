@@ -4,21 +4,27 @@ plugins {
     `maven-publish`
 }
 
-version = "0.2.14"
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    compileOnly(kotlin("stdlib"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
 }
 
 kotlin {
     jvmToolchain(21)
+}
+
+tasks {
+    jar {
+        archiveBaseName.set("${rootProject.name}-common")
+        archiveVersion.set(project.version.toString())
+        archiveClassifier.set("") 
+    }
 }
 
 publishing {
