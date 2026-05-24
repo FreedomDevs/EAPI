@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.elysium.eapi"
-version = "0.2.14"
+version = "2.0"
 
 allprojects {
     repositories {
