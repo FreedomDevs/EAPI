@@ -4,10 +4,6 @@ plugins {
     `maven-publish`
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compileOnly(kotlin("stdlib"))
 
