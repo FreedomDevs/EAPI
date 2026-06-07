@@ -62,6 +62,13 @@ publishing {
             artifactId = "${rootProject.name}-paper"
             version = project.version.toString()
         }
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            groupId = project.group.toString()
+            artifactId = "${rootProject.name}-paper"
+            version = "latest"
+        }
     }
     repositories {
         maven {
