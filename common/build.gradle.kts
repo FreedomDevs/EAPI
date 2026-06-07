@@ -37,4 +37,9 @@ publishing {
             version = project.version.toString()
         }
     }
+    repositories {
+        maven {
+            url = rootProject.layout.buildDirectory.dir("repo").get().asFile.toURI()
+        }
+    }
 }

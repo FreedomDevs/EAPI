@@ -30,7 +30,7 @@ kotlin {
 tasks {
     shadowJar {
         archiveBaseName.set("${rootProject.name}-paper")
- archiveVersion.set(project.version.toString())
+        archiveVersion.set(project.version.toString())
         archiveClassifier.set("")
         mergeServiceFiles()
 
@@ -51,6 +51,23 @@ tasks {
     processResources {
         filesMatching("plugin.yml") {
             expand(mapOf("version" to project.version))
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            groupId = project.group.toString()
+            artifactId = "${rootProject.name}-paper"
+            version = project.version.toString()
+        }
+    }
+    repositories {
+        maven {
+            url = rootProject.layout.buildDirectory.dir("repo").get().asFile.toURI()
         }
     }
 }
