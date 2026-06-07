@@ -33,11 +33,11 @@ publishing {
             version = project.version.toString()
         }
         create<MavenPublication>("mavenJavaLatest") {
-            from(components["java"])
-
             groupId = project.group.toString()
             artifactId = "${rootProject.name}-common"
             version = "latest"
+
+            artifact(tasks.named("jar"))
         }
     }
     repositories {
