@@ -56,6 +56,8 @@ tasks {
         archiveBaseName.set("${rootProject.name}-paper")
         archiveClassifier.set("sources")
         from(sourceSets.main.get().allSource)
+        val commonProject = project(":common")
+        from(commonProject.extensions.getByType<SourceSetContainer>().named("main").map { it.allSource })
     }
 }
 
