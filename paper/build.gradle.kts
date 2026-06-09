@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.github.johnrengelman.shadow")
     `maven-publish`
+    `java-library`
 }
 
 repositories {
@@ -13,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":common"))
+    api(project(":common"))
 
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
 
@@ -41,6 +42,7 @@ tasks {
     jar {
         enabled = true
         archiveBaseName.set("${rootProject.name}-paper")
+        archiveClassifier.set("")
     }
 
     build {
