@@ -70,15 +70,6 @@ publishing {
 
             artifact(tasks.named("sourcesJar"))
         }
-        create<MavenPublication>("mavenJavaLatest") {
-            from(components["java"])
-
-            groupId = project.group.toString()
-            artifactId = "${rootProject.name}-paper"
-            version = "latest"
-
-            artifact(tasks.named("sourcesJar"))
-        }
     }
     repositories {
         maven {
