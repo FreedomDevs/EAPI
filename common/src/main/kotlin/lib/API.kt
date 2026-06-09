@@ -1,11 +1,11 @@
-package lib
+package dev.elysium.eapi.lib
 
 class API(internal val baseUrl: String, internal val token: String) {
     @Deprecated(
         message = "v1 is deprecated. Use api.v2 instead.",
         replaceWith = ReplaceWith("v2")
     )
-    val v1 = lib.v1.API(baseUrl, token)
+    val v1 = dev.elysium.eapi.lib.v1.API(baseUrl, token)
 
     @Deprecated(
         message = "v1 is deprecated. Use api.v2 instead.",
@@ -16,7 +16,7 @@ class API(internal val baseUrl: String, internal val token: String) {
     /**
      * Current stable API version.
      */
-    val v2 = lib.v2.API(baseUrl, token)
+    val v2 = dev.elysium.eapi.lib.v2.API(baseUrl, token)
 
     @Deprecated(
         message = "Use property access api.v2 instead of function call",

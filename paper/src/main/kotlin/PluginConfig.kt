@@ -1,3 +1,5 @@
+package dev.elysium.eapi
+
 class PluginConfig(private val plugin: EAPIPaper) {
 
     fun init() {

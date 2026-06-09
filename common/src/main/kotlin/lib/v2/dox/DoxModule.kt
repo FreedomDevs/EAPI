@@ -1,8 +1,8 @@
-package lib.v2.dox
+package dev.elysium.eapi.lib.v2.dox
 
-import lib.core.ApiContext
-import lib.core.ApiModule
-import lib.v2.dox.endpoints.IpEndpoint
+import dev.elysium.eapi.lib.core.ApiContext
+import dev.elysium.eapi.lib.core.ApiModule
+import dev.elysium.eapi.lib.v2.dox.endpoints.IpEndpoint
 
 class DoxModule(context: ApiContext
 ) : ApiModule(context, "/dox") {

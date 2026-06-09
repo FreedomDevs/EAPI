@@ -1,8 +1,8 @@
-package lib.v2.auth
+package dev.elysium.eapi.lib.v2.auth
 
-import lib.core.ApiContext
-import lib.v2.auth.endpoints.*
-import lib.core.ApiModule
+import dev.elysium.eapi.lib.core.ApiContext
+import dev.elysium.eapi.lib.v2.auth.endpoints.*
+import dev.elysium.eapi.lib.core.ApiModule
 
 class AuthModule(
     context: ApiContext

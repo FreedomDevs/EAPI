@@ -1,6 +1,6 @@
-package lib.v1
+package dev.elysium.eapi.lib.v1
 
-import lib.v1.endpoints.*
+import dev.elysium.eapi.lib.v1.endpoints.*
 
 class API(internal val baseUrl: String, internal val token: String) {
 

@@ -1,13 +1,15 @@
+package dev.elysium.eapi
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import lib.API
-import listeners.JoinPlayerApiHealthCheck
+import dev.elysium.eapi.lib.API
+import dev.elysium.eapi.listeners.JoinPlayerApiHealthCheck
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
-import services.ApiHealthService
-import services.ConnectionCheckerService
+import dev.elysium.eapi.services.ApiHealthService
+import dev.elysium.eapi.services.ConnectionCheckerService
 
 class EAPIPaper: JavaPlugin(), CoroutineScope {
     private val job = SupervisorJob()

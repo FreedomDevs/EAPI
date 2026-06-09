@@ -1,8 +1,8 @@
-package lib.v2.auth.endpoints
+package dev.elysium.eapi.lib.v2.auth.endpoints
 
 import kotlinx.serialization.Serializable
-import lib.core.ApiModule
-import lib.core.Endpoint
+import dev.elysium.eapi.lib.core.ApiModule
+import dev.elysium.eapi.lib.core.Endpoint
 
 class RegisterEndpoint(
     module: ApiModule

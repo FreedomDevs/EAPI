@@ -1,8 +1,8 @@
-package lib.v2.dox.endpoints
+package dev.elysium.eapi.lib.v2.dox.endpoints
 
-import lib.core.ApiModule
-import lib.core.Endpoint
-import lib.core.HttpMethod
+import dev.elysium.eapi.lib.core.ApiModule
+import dev.elysium.eapi.lib.core.Endpoint
+import dev.elysium.eapi.lib.core.HttpMethod
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 

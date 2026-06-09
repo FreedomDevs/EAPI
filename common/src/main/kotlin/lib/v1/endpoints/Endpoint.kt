@@ -1,6 +1,6 @@
-package lib.v1.endpoints
+package dev.elysium.eapi.lib.v1.endpoints
 
-import lib.v1.API
+import dev.elysium.eapi.lib.v1.API
 
 interface Endpoint {
     fun inject(api: API)

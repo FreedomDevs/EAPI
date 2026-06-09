@@ -1,6 +1,7 @@
-package services
+package dev.elysium.eapi.services
 
 import org.bukkit.scheduler.BukkitRunnable
+import dev.elysium.eapi.EAPIPaper
 
 class ConnectionCheckerService(
     private val apiHealth: ApiHealthService

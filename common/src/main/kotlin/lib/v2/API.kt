@@ -1,8 +1,8 @@
-package lib.v2
+package dev.elysium.eapi.lib.v2
 
-import lib.core.ApiContext
-import lib.v2.auth.AuthModule
-import lib.v2.dox.DoxModule
+import dev.elysium.eapi.lib.core.ApiContext
+import dev.elysium.eapi.lib.v2.auth.AuthModule
+import dev.elysium.eapi.lib.v2.dox.DoxModule
 
 class API(baseUrl: String, token: String) {
 

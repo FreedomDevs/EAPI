@@ -51,6 +51,12 @@ tasks {
             expand(mapOf("version" to project.version))
         }
     }
+
+    val sourcesJar by registering(Jar::class) {
+        archiveBaseName.set("${rootProject.name}-common")
+        archiveClassifier.set("sources")
+        from(sourceSets.main.get().allSource)
+    }
 }
 
 publishing {
@@ -61,6 +67,8 @@ publishing {
             groupId = project.group.toString()
             artifactId = "${rootProject.name}-paper"
             version = project.version.toString()
+
+            artifact(tasks.named("sourcesJar"))
         }
         create<MavenPublication>("mavenJavaLatest") {
             from(components["java"])
@@ -68,6 +76,8 @@ publishing {
             groupId = project.group.toString()
             artifactId = "${rootProject.name}-paper"
             version = "latest"
+
+            artifact(tasks.named("sourcesJar"))
         }
     }
     repositories {

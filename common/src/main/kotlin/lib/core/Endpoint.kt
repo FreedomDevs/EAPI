@@ -1,4 +1,4 @@
-package lib.core
+package dev.elysium.eapi.lib.core
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

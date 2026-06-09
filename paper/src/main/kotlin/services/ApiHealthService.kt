@@ -1,9 +1,9 @@
-package services
+package dev.elysium.eapi.services
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import lib.API
+import dev.elysium.eapi.lib.API
 import java.util.concurrent.atomic.AtomicBoolean
 
 class ApiHealthService(
