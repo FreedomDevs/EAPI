@@ -53,7 +53,7 @@ tasks {
     }
 
     val sourcesJar by registering(Jar::class) {
-        archiveBaseName.set("${rootProject.name}-common")
+        archiveBaseName.set("${rootProject.name}-paper")
         archiveClassifier.set("sources")
         from(sourceSets.main.get().allSource)
     }
@@ -62,8 +62,8 @@ tasks {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            from(components["java"])
-
+            project.shadow.component(this) 
+            
             groupId = project.group.toString()
             artifactId = "${rootProject.name}-paper"
             version = project.version.toString()
@@ -71,6 +71,7 @@ publishing {
             artifact(tasks.named("sourcesJar"))
         }
     }
+
     repositories {
         maven {
             url = rootProject.layout.buildDirectory.dir("repo").get().asFile.toURI()
