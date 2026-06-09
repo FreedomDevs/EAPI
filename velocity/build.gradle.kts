@@ -1,7 +1,9 @@
 plugins {
     kotlin("jvm")
+    kotlin("kapt")
     kotlin("plugin.serialization")
     id("com.gradleup.shadow")
+
     `maven-publish`
     `java-library`
 }
@@ -16,10 +18,12 @@ repositories {
 dependencies {
     api(project(":common"))
 
-    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:3.5.0-SNAPSHOT")
+    compileOnly("me.lucko.configurate:configurate-toml:4.1")
+    kapt("com.velocitypowered:velocity-api:3.5.0-SNAPSHOT")
 
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
 }
 
 kotlin {
@@ -28,22 +32,20 @@ kotlin {
 
 tasks {
     shadowJar {
-        archiveBaseName.set("${rootProject.name}-paper")
+        archiveBaseName.set("${rootProject.name}-velocity")
         archiveVersion.set(project.version.toString())
         archiveClassifier.set("shaded")
         mergeServiceFiles()
 
         minimize()
 
-        dependencies {
-            exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib"))
-            exclude(dependency("org.jetbrains:annotations"))
-        }
+        relocate("kotlin", "dev.elysium.eapi.internal.kotlin")
+        relocate("kotlinx", "dev.elysium.eapi.internal.kotlinx")
     }
 
     jar {
         enabled = true
-        archiveBaseName.set("${rootProject.name}-paper")
+        archiveBaseName.set("${rootProject.name}-velocity")
         archiveClassifier.set("")
     }
 
@@ -51,14 +53,8 @@ tasks {
         dependsOn(shadowJar)
     }
 
-    processResources {
-        filesMatching("plugin.yml") {
-            expand(mapOf("version" to project.version))
-        }
-    }
-
     val sourcesJar by registering(Jar::class) {
-        archiveBaseName.set("${rootProject.name}-paper")
+        archiveBaseName.set("${rootProject.name}-velocity")
         archiveClassifier.set("sources")
         from(sourceSets.main.get().allSource)
     }
@@ -70,7 +66,7 @@ publishing {
             from(components["java"])
 
             groupId = project.group.toString()
-            artifactId = "${rootProject.name}-paper"
+            artifactId = "${rootProject.name}-velocity"
             version = project.version.toString()
 
             artifact(tasks.named("sourcesJar"))

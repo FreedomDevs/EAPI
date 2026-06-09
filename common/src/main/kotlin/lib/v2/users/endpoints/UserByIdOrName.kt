@@ -24,7 +24,7 @@ class UserByIdOrName (
     data class Res(
         val success: Boolean,
         val code: String,
-        val data: List<UserData>
+        val data: UserData
     )
 
     @Serializable
