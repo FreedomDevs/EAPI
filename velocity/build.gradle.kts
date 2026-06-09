@@ -34,7 +34,7 @@ tasks {
     shadowJar {
         archiveBaseName.set("${rootProject.name}-velocity")
         archiveVersion.set(project.version.toString())
-        archiveClassifier.set("shaded")
+        archiveClassifier.set("plugin")
         mergeServiceFiles()
 
         minimize()
