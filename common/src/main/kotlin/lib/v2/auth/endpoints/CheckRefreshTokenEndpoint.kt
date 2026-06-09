@@ -20,8 +20,5 @@ class CheckRefreshTokenEndpoint(
     )
 
     @Serializable
-    data class Res(
-        val uuid: String,
-        val username: String
-    )
+    data class Res()
 }
