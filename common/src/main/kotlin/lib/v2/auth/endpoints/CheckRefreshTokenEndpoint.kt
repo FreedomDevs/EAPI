@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
 
 class CheckRefreshTokenEndpoint(
     module: ApiModule
-) : Endpoint<CheckRefreshTokenEndpoint.Req, CheckRefreshTokenEndpoint.Res>(
+) : Endpoint<CheckRefreshTokenEndpoint.Req, Unit>(
     module = module,
     reqSerializer = Req.serializer(),
-    resSerializer = Res.serializer(),
+    resSerializer = null,
 ) {
 
     override val path = "/check_refresh_token"
@@ -18,7 +18,4 @@ class CheckRefreshTokenEndpoint(
     data class Req(
         val refresh_token: String
     )
-
-    @Serializable
-    data class Res()
 }

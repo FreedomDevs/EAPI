@@ -6,11 +6,12 @@ import kotlinx.serialization.KSerializer
 import java.net.http.HttpResponse
 
 typealias Endpoint<Req, Res> = EndpointWithQuery<Req, Unit, Res>
-abstract class EndpointWithQuery<Req : Any, Query: Any, Res : Any>(
+
+abstract class EndpointWithQuery<Req : Any, Query : Any, Res : Any>(
     private val module: ApiModule,
     private val reqSerializer: KSerializer<Req>?,
     private val querySerializer: KSerializer<Query>? = null,
-    private val resSerializer: KSerializer<Res>
+    private val resSerializer: KSerializer<Res>?
 ) {
 
     abstract val path: String
@@ -41,7 +42,7 @@ abstract class EndpointWithQuery<Req : Any, Query: Any, Res : Any>(
         var currentPath = path
 
         for (i in paths.entries) {
-            currentPath = currentPath.replace(":"+i.key, i.value)
+            currentPath = currentPath.replace(":" + i.key, i.value)
         }
         return currentPath
     }
@@ -78,6 +79,11 @@ abstract class EndpointWithQuery<Req : Any, Query: Any, Res : Any>(
                 response.statusCode(),
                 response.body()
             )
+        }
+
+        if (resSerializer == null) {
+            @Suppress("UNCHECKED_CAST")
+            return Unit as Res
         }
 
         return JsonProvider.json.decodeFromString(
