@@ -13,7 +13,7 @@ class ApiContext(
         path: String,
         method: HttpMethod,
         body: String? = null,
-        query: Map<String, String> = emptyMap()
+        query: Map<String, List<String>> = emptyMap()
     ): HttpRequest {
 
         val fullPath = buildString {
@@ -23,9 +23,13 @@ class ApiContext(
             if (query.isNotEmpty()) {
                 append('?')
                 append(
-                    query.entries.joinToString("&") { (key, value)  ->
-                        "${URLEncoder.encode(key, Charsets.UTF_8)}=${URLEncoder.encode(value, Charsets.UTF_8)}"
-                    }
+                    query.entries
+                        .flatMap { (key, values) ->
+                            values.map { value ->
+                                "${URLEncoder.encode(key, Charsets.UTF_8)}=${URLEncoder.encode(value, Charsets.UTF_8)}"
+                            }
+                        }
+                        .joinToString("&")
                 )
             }
         }

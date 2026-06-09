@@ -2,13 +2,14 @@ package dev.elysium.eapi.lib.v2.dox.endpoints
 
 import dev.elysium.eapi.lib.core.ApiModule
 import dev.elysium.eapi.lib.core.Endpoint
+import dev.elysium.eapi.lib.core.EndpointWithQuery
 import dev.elysium.eapi.lib.core.HttpMethod
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 class IpEndpoint(
     module: ApiModule
-) : Endpoint<IpEndpoint.Req, IpEndpoint.Res>(
+) : EndpointWithQuery<Unit, IpEndpoint.Query, IpEndpoint.Res>(
     module = module,
     reqSerializer = null,
     resSerializer = Res.serializer(),
@@ -17,21 +18,8 @@ class IpEndpoint(
     override val path = "/ip"
     override val method = HttpMethod.GET
 
-    override fun query(body: Req?): Map<String, String> {
-        if (body == null) {
-            return emptyMap()
-        }
-
-        return buildMap {
-            put("ip", body.ip)
-            body.lang?.let {
-                put("lang", it)
-            }
-        }
-    }
-
     @Serializable
-    data class Req(
+    data class Query(
         val ip: String,
         val lang: String? = "ru"
     )
@@ -73,6 +61,6 @@ class IpEndpoint(
         @SerialName("ASO")
         val aso: String? = null,
 
-        val result: String? = null
+        val result: String
     )
 }

@@ -3,6 +3,7 @@ package dev.elysium.eapi.lib.v2
 import dev.elysium.eapi.lib.core.ApiContext
 import dev.elysium.eapi.lib.v2.auth.AuthModule
 import dev.elysium.eapi.lib.v2.dox.DoxModule
+import dev.elysium.eapi.lib.v2.users.UsersModule
 
 class API(baseUrl: String, token: String) {
 
@@ -11,4 +12,6 @@ class API(baseUrl: String, token: String) {
     val auth = AuthModule(this.context)
 
     val dox = DoxModule(this.context)
+
+    val users = UsersModule(this.context)
 }

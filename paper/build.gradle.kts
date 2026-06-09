@@ -29,7 +29,7 @@ tasks {
     shadowJar {
         archiveBaseName.set("${rootProject.name}-paper")
         archiveVersion.set(project.version.toString())
-        archiveClassifier.set("")
+        archiveClassifier.set("shaded")
         mergeServiceFiles()
 
         dependencies {
@@ -39,7 +39,8 @@ tasks {
     }
 
     jar {
-        enabled = false
+        enabled = true
+        archiveBaseName.set("${rootProject.name}-paper")
     }
 
     build {
@@ -56,16 +57,14 @@ tasks {
         archiveBaseName.set("${rootProject.name}-paper")
         archiveClassifier.set("sources")
         from(sourceSets.main.get().allSource)
-        val commonProject = project(":common")
-        from(commonProject.extensions.getByType<SourceSetContainer>().named("main").map { it.allSource })
     }
 }
 
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            project.shadow.component(this) 
-            
+            from(components["java"])
+
             groupId = project.group.toString()
             artifactId = "${rootProject.name}-paper"
             version = project.version.toString()
