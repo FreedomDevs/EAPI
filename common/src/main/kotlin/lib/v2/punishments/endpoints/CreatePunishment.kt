@@ -7,20 +7,24 @@ import dev.elysium.eapi.lib.core.Endpoint
 import dev.elysium.eapi.lib.core.HttpMethod
 import kotlinx.serialization.Serializable
 
-class CreatePunishment (
+class CreatePunishment(
     module: ApiModule
 ) : Endpoint<CreatePunishment.Req, ApiResponse<CreatePunishment.Res>>(
     module = module,
     reqSerializer = Req.serializer(),
     resSerializer = ApiResponse.serializer(Res.serializer()),
 ) {
-    override val path = "/:punishmentId"
+    override val path = "/"
     override val method = HttpMethod.POST
 
     @Serializable
     data class Req(
-        val revokedBy: EUUID,
+        val userId: EUUID,
+        val type: Types,
         val reason: String,
+        val serverName: String?,
+        val duration: Long,
+        val issuedBy: EUUID
     )
 
     @Serializable

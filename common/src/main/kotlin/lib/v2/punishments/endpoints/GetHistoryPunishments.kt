@@ -17,7 +17,7 @@ class GetHistoryPunishments(
     reqSerializer = null,
     resSerializer = ApiResponse.serializer(ListSerializer(Res.serializer())),
 ) {
-    override val path = "/check"
+    override val path = "/history"
     override val method = HttpMethod.GET
 
     @Serializable
