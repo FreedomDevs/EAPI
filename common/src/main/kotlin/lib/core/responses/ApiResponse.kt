@@ -8,3 +8,9 @@ data class ApiResponse<T>(
     val message: String,
     val meta: Meta
 )
+
+@Serializable
+data class ApiResponseND(
+    val message: String,
+    val meta: Meta
+)
