@@ -13,7 +13,7 @@ allprojects {
 }
 
 subprojects {
-    version = "2.5.3"
+    version = "2.5.4"
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
