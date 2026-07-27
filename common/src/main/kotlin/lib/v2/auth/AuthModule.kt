@@ -4,6 +4,7 @@ import dev.elysium.eapi.lib.core.ApiContext
 import dev.elysium.eapi.lib.v2.auth.endpoints.*
 import dev.elysium.eapi.lib.core.ApiModule
 
+@Suppress("Unused")
 class AuthModule(
     context: ApiContext
 ) : ApiModule(context, "/auth") {

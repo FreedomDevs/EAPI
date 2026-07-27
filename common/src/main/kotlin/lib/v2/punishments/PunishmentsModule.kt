@@ -7,6 +7,7 @@ import dev.elysium.eapi.lib.v2.punishments.endpoints.GetActivePunishments
 import dev.elysium.eapi.lib.v2.punishments.endpoints.GetHistoryPunishments
 import dev.elysium.eapi.lib.v2.punishments.endpoints.RevokePunishment
 
+@Suppress("Unused")
 class PunishmentsModule(context: ApiContext
 ) : ApiModule(context, "/punishments") {
     val createPunishment = CreatePunishment(this)

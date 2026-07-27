@@ -7,6 +7,7 @@ import dev.elysium.eapi.lib.v2.punishments.PunishmentsModule
 import dev.elysium.eapi.lib.v2.users.UsersModule
 import dev.elysium.eapi.lib.v2.whitelist.WhitelistModule
 
+@Suppress("Unused")
 class API(baseUrl: String, token: String) {
 
     private val context = ApiContext(baseUrl, token)
