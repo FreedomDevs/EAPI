@@ -15,7 +15,7 @@ class CheckWhitelist(
     resSerializer = ApiResponse.serializer(Res.serializer()),
 ) {
     override val path = "/"
-    override val method = HttpMethod.POST
+    override val method = HttpMethod.GET
 
     @Serializable
     data class Query(
