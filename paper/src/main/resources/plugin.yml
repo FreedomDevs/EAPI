@@ -1,6 +1,6 @@
 name: EAPI
 version: ${version}
-main: EAPIPaper
+main: dev.elysium.eapi.EAPIPaper
 description: Просто Библиотека для работы с АПИ
 api-version: '1.21.1'
 
